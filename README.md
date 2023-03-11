@@ -1,17 +1,4 @@
-# 21 MERN: Book Search Engine - book_search_engine
-
-
-This application is a GraphQL API built with Apollo Server. The app is built using the MERN stack with a React front end, MongoDB database, and Node.js/Express.js server and API. It's set up to allow users to save book searches to the back end. 
-
-To complete the assignment, the following have been done:
-
-1. Set up an Apollo Server to use GraphQL queries and mutations to fetch and modify data.
-
-2. Setup the existing authentication middleware so that it works in the context of a GraphQL API.
-
-3. Create an Apollo Provider so that requests can communicate with an Apollo Server.
-
-4. Deploy your application to Heroku with a MongoDB database using MongoDB Atlas. Use the [Deploy with Heroku and MongoDB Atlas](https://coding-boot-camp.github.io/full-stack/mongodb/deploy-with-heroku-and-mongodb-atlas) walkthrough for instructions.
+# 21-Book-Search-MERN
 
 
 ## User Story
@@ -58,22 +45,3 @@ THEN I am logged out of the site and presented with a menu with the options Sear
 ```
 
 
-## Mock-Up
-
-The following demo demonstrate the appearance and functionality of the application. The user can search for books and save any of them to their profile:
-
-![Animation shows "star war" typed into a search box and books about Star Wars appearing as results.](./Assets/Book_Search_Demo.gif)
-
-
-
-
-## Review
-
-You are required to submit BOTH of the following for review:
-
-* The URL of the functional, deployed application on Heroku : https://calm-coast-57125.herokuapp.com/
-
-* The URL of the GitHub repository : https://github.com/zahid267/book_search_engine
-
----
-*** Developed by Muhammad Zahid --- July 28, 2021.
