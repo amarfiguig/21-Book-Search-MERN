@@ -1,60 +1,50 @@
-import React from 'react';
-/// new lines next
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  createHttpLink,
-} from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
-// new lines end
-
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+// Importing necessary components and packages
 import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
+import { ApolloProvider } from '@apollo/react-hooks';
+import ApolloClient from 'apollo-boost';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-// new lines next
-// Construct our main GraphQL API endpoint
-const httpLink = createHttpLink({
+// Creating an instance of ApolloClient with required settings
+const client = new ApolloClient({
+  // Adding authorization token to the headers of the GraphQL requests
+  request: (operation) => {
+    const token = localStorage.getItem('id_token');
+
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}` : '',
+      },
+    });
+  },
   uri: '/graphql',
 });
 
-// Construct request middleware that will attach the JWT token to every request as an `authorization` header
-const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
-  const token = localStorage.getItem('id_token');
-  // return the headers to the context so httpLink can read them
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : '',
-    },
-  };
-});
-
-const client = new ApolloClient({
-  // Set up our client to execute the `authLink` middleware prior to making the request to our GraphQL API
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
-});
-// new lines end
-
-
-
+// Main App component
 function App() {
+  // Wrapping App component with ApolloProvider and Router components
   return (
     <ApolloProvider client={client}>
-    <Router>
-        <Navbar />
-        <Switch>
-          <Route exact path='/' component={SearchBooks} />
-          <Route exact path='/saved' component={SavedBooks} />
-          <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
-        </Switch>
-    </Router>
+      <Router>
+        <>
+          {/* Rendering Navbar component */}
+          <Navbar />
+          {/* Defining routes */}
+          <Switch>
+            {/* Route for searching books */}
+            <Route exact path='/' component={SearchBooks} />
+            {/* Route for displaying saved books */}
+            <Route exact path='/saved' component={SavedBooks} />
+            {/* Default route for displaying wrong page error */}
+            <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
+          </Switch>
+        </>
+      </Router>
     </ApolloProvider>
   );
 }
 
+// Exporting the main App component
 export default App;
