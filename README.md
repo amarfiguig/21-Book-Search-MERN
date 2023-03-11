@@ -1,7 +1,17 @@
 # 21-Book-Search-MERN
 
+## Table of Contents
+* [Description](#description)
+* [Installation](#installation)
+* [Usage](#usage)
+* [License](#license)
+* [Questions](#questions)
 
-## User Story
+## Description
+
+Book-Search-MERN is a web application that enables users to search for books using the MERN stack (MongoDB, Express, React, and Node.js). The application allows users to search for books by author, title, or keyword and displays results in an easy-to-use interface.
+
+### User Story
 
 ```
 AS AN avid reader
@@ -10,7 +20,7 @@ SO THAT I can keep a list of books to purchase
 ```
 
 
-## Acceptance Criteria
+### Acceptance Criteria
 
 ```
 GIVEN a book search engine
@@ -47,4 +57,26 @@ THEN I am logged out of the site and presented with a menu with the options Sear
 
 To get started with this application, you'll need to install it by running the following command:
 
+```
 npm install
+```
+
+## Usage
+
+To use the application, simply run the following command:
+
+```
+npm start
+```
+
+This will start the application and allow you to access its features.
+
+## License
+
+N/A
+
+## Questions
+
+If you have any questions, feel free to contact me using the information provided below. 
+[Github](https://www.github.com/amarfiguig)  
+[Email](myfiguig@gmail.com)
