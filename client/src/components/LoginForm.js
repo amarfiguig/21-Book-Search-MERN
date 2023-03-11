@@ -1,32 +1,38 @@
-// see SignupForm.js for comments
-import React, { useState } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
-// new line
-import { useMutation } from '@apollo/client';
-// Import the GraphQL mutation
-import { LOGIN_USER } from '../utils/mutations';
+// Import necessary dependencies
+import React, { useState, useEffect } from 'react';
+import { Form, Button, Alert } from 'react-bootstrap'; // Use Bootstrap for styling
 
-import Auth from '../utils/auth';
-
-
+import { useMutation } from '@apollo/react-hooks'; // Use the useMutation hook from the Apollo library
+import { LOGIN_USER } from '../utils/mutations'; // Import the LOGIN_USER mutation
+import Auth from '../utils/auth'; // Import the Auth object from the utils folder
 
 const LoginForm = () => {
-  const [userFormData, setUserFormData] = useState({ email: '', password: '' });
-  const [validated] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
+  // Set up state variables using the useState hook
+  const [userFormData, setUserFormData] = useState({ email: '', password: '' }); // User's form data
+  const [validated, setValidated] = useState(false); // Whether or not the form has been validated
+  const [showAlert, setShowAlert] = useState(false); // Whether or not to show the alert
+  const [login, { error }] = useMutation(LOGIN_USER); // Use the LOGIN_USER mutation
 
-  const [loginUser] = useMutation(LOGIN_USER);
-  //console.log(error);
+  // Use the useEffect hook to handle errors
+  useEffect(() => {
+    if (error) {
+      setShowAlert(true);
+    } else {
+      setShowAlert(false);
+    }
+  }, [error]);
 
+  // Handle changes to the input fields
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
 
+  // Handle the form submission
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    // check if form has everything (as per react-bootstrap docs)
+    // Validate the form
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -34,15 +40,18 @@ const LoginForm = () => {
     }
 
     try {
-      const { data } = await loginUser({
+      const { data } = await login({
         variables: { ...userFormData },
       });
-      Auth.login(data.loginUser.token);
+
+      console.log(data);
+      Auth.login(data.login.token); // Log the user in and store their token
     } catch (e) {
       console.error(e);
     }
+
+    // Clear the form values
     setUserFormData({
-      username: '',
       email: '',
       password: '',
     });
@@ -79,10 +88,7 @@ const LoginForm = () => {
           />
           <Form.Control.Feedback type='invalid'>Password is required!</Form.Control.Feedback>
         </Form.Group>
-        <Button
-          disabled={!(userFormData.email && userFormData.password)}
-          type='submit'
-          variant='success'>
+        <Button disabled={!(userFormData.email && userFormData.password)} type='submit' variant='success'>
           Submit
         </Button>
       </Form>
