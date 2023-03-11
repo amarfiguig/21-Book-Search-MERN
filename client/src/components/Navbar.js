@@ -12,14 +12,19 @@ const AppNavbar = () => {
 
   return (
     <>
+      {/* Navbar component from react-bootstrap */}
       <Navbar bg='dark' variant='dark' expand='lg'>
         <Container fluid>
+          {/* Navbar brand that links to home page */}
           <Navbar.Brand as={Link} to='/'>
             Google Books Search
           </Navbar.Brand>
+          {/* Navbar toggle button for mobile */}
           <Navbar.Toggle aria-controls='navbar' />
+          {/* Navbar collapse component for responsive layout */}
           <Navbar.Collapse id='navbar'>
             <Nav className='ml-auto'>
+              {/* Nav links for search, saved books, and login/logout */}
               <Nav.Link as={Link} to='/'>
                 Search For Books
               </Nav.Link>
@@ -38,6 +43,8 @@ const AppNavbar = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
+      {/* Modal component from react-bootstrap */}
       {/* set modal data up */}
       <Modal
         size='lg'
@@ -47,6 +54,7 @@ const AppNavbar = () => {
         {/* tab container to do either signup or login component */}
         <Tab.Container defaultActiveKey='login'>
           <Modal.Header closeButton>
+            {/* Modal title that has tabs for login and sign up */}
             <Modal.Title id='signup-modal'>
               <Nav variant='pills'>
                 <Nav.Item>
@@ -59,6 +67,7 @@ const AppNavbar = () => {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
+            {/* Tab content with login and sign up forms */}
             <Tab.Content>
               <Tab.Pane eventKey='login'>
                 <LoginForm handleModalClose={() => setShowModal(false)} />
